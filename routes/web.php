@@ -27,8 +27,25 @@ Route::controller(ScheduleController::class)->group(function() {
     Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
     Route::put('/schedule/accept/{schedule}', [ScheduleController::class, 'accept'])->name('schedule.accept');
     Route::put('/schedule/cancel/{schedule}', [ScheduleController::class, 'cancel'])->name('schedule.cancel');
-    
+
 });
+
+Route::get('/bill', function(){
+    return view('bill.index');
+})->name('bill');
+
+Route::get('/bill/show', function(){
+    return view('bill.show');
+})->name('bill.show');
+
+
+Route::get('/bill/history', function(){
+    return view('bill.history');
+})->name('bill.history');
+
+
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

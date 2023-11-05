@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\User;
 
 class ScheduleController extends Controller
 {
@@ -37,9 +38,24 @@ class ScheduleController extends Controller
         return redirect()->route('home')->with('success', 'Create appointment successfully, Please wait for the owner to contact back.');
     }
 
-    public function accept(Request $request, Schedule $schedule) {
-        $schedule->status = 'ACCEPT';
-        $schedule->save();
+    public function accept(Request $request) {
+        $schedule = json_decode($request->input('schedule'));
+
+        $request->validate([
+            'password' => ['required', 'string']
+        ]);
+
+        $user = new User();
+        $user->name = $schedule->name;
+        $user->email = $schedule->email;
+        $user->phone_number = $schedule->phone_number;
+        $user->password = $request->password;
+
+        $user->save();
+
+        $de = Schedule::find($schedule->id);
+
+        $de->delete();
 
         return redirect()->route('schedule.index')->with('success', 'Change appointment status to ACCEPT, Successfully.');
     }
