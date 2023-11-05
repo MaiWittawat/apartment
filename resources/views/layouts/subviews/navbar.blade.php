@@ -18,25 +18,25 @@
             <div class="flex list-none  w-8/12 mr-48 items-center justify-around">
                 <li>
                     <a href="#" class="text-base font-normal text-gray-500 list-none hover:text-gray-900"
-                        target="">Pricing</a>
+                        target="">Bill</a>
                 </li>
                 <li>
                     <a href="#" class="text-base font-normal text-gray-500 list-none hover:text-gray-900"
-                        target="">Gallary
+                        target="">Complaint
                     </a>
                 </li>
                 <li>
                     <a href="#" class="text-base font-normal text-gray-500 list-none hover:text-gray-900"
-                        target="_blank">Blog
+                        target="_blank">History
                     </a>
                 </li>
             </div>
             <div class="hidden  md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                 <div class="inline-flex rounded-full shadow">
-                    <div href="#"
-                        class="inline-flex items-center px-4 py-2 text-base text-gray-900 bg-white border border-transparent rounded-full cursor-pointer font-base hover:bg-gray-50 ">
+                    <a href="{{ route('login') }}"
+                        class="inline-flex items-center px-4 py-2 text-base text-gray-900  border border-transparent rounded-md cursor-pointer font-base hover:bg-green-500 hover:text-white">
                         Sign in
-                    </div>
+                    </a>
                 </div>
             </div>
         </nav>
