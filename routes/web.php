@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\BillController;
+use App\Http\Controllers\ExpenseController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 
@@ -30,19 +32,20 @@ Route::controller(ScheduleController::class)->group(function() {
 
 });
 
-Route::get('/bill', function(){
-    return view('bill.index');
-})->name('bill');
+Route::controller(BillController::class)->group(function() {
+    Route::get('/bill', [BillController::class, 'index'])->name('bill');
+    Route::get('/bill/show', [BillController::class, 'show'])->name('bill.show');
+    Route::get('/bill/history', [BillController::class, 'history'])->name('bill.history');
+    // Route::get('/bill/create', [BillController::class, 'create'])->name('bill.create');
+    // Route::post('/bill/store', [BillController::class, 'store'])->name('bill.store');
+});
 
-Route::get('/bill/show', function(){
-    return view('bill.show');
-})->name('bill.show');
-
-
-Route::get('/bill/history', function(){
-    return view('bill.history');
-})->name('bill.history');
-
+Route::controller(ExpenseController::class)->group(function() {
+    Route::get('/expense/elec/create', [ExpenseController::class, 'elec'])->name('expense.elec');
+    Route::get('/expense/water/create', [ExpenseController::class, 'water'])->name('expense.water');
+    Route::post('/expense/elec/store', [ExpenseController::class, 'elec_store'])->name('expense.elec_store');
+    Route::post('/expense/water/store', [ExpenseController::class, 'water_store'])->name('expense.water_store');
+});
 
 
 
