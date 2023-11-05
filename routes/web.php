@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ScheduleController;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,24 +18,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+})->name('home');
+
+Route::controller(ScheduleController::class)->group(function() {
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
+    Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::put('/schedule/accept/{schedule}', [ScheduleController::class, 'accept'])->name('schedule.accept');
+    Route::put('/schedule/cancel/{schedule}', [ScheduleController::class, 'cancel'])->name('schedule.cancel');
+    
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::get('/main', function(){
-    return view('main');
-});
-
-Route::resource('/room', RoomController::class);
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 
-require __DIR__.'/auth.php';
+
+// Route::resource('/room', RoomController::class);
+
+
+// require __DIR__.'/auth.php';
