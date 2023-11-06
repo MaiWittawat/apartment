@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ExpenseController;
 
@@ -11,7 +12,8 @@ use App\Http\Controllers\ExpenseController;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register web routes for your application. The
+ese
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
@@ -47,6 +49,8 @@ Route::controller(ExpenseController::class)->group(function() {
     Route::post('/expense/store', [ExpenseController::class, 'store'])->name('expense.store');
 });
 
+Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.crate');
+Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

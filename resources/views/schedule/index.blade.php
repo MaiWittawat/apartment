@@ -54,10 +54,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($schedules as $schedule)
-
-
-
-
                                     <tr>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <div class="flex items-center">
@@ -116,68 +112,67 @@
         </div>
     </div>
 
-                            {{-- <form action="{{ route('schedule.accept', ['schedule' => $schedule]) }}" method="post"
-                                    class="fixed z-10 inset-0 overflow-y-auto hidden" id="myModal">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="schedule" value="{{ $schedule }}">
-                                    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-                                        <div class="fixed inset-0 transition-opacity">
-                                            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                                        </div>
-                                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
-                                        <div
-                                            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-                                            <div class="sm:flex sm:items-start">
-                                                <div
-                                                    class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                                    <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                </div>
-                                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                    <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                                        Confirm !!
-                                                    </h3>
-                                                    <div class="mt-2 flex flex-col gap-4">
-                                                        <label for="password" class="text-sm leading-5 text-gray-500">
-                                                            plese add you password
-                                                        </label>
-                                                        <input type="text" id="passwordIp" name="password" placeholder="add you password"
-                                                            class=" rounded-lg w-72">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                                                <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                                                    <button type="submit"
-                                                        class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                                        Confirm
-                                                    </button>
-                                                </span>
-                                                <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-                                                    <button type="button" id="cancel-btn"
-                                                        class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                                        Cancel
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form> --}}
+    <form action="{{ route('schedule.accept', ['schedule' => $schedule]) }}" method="post"
+        class="fixed z-10 inset-0 overflow-y-auto hidden" id="myModal">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="schedule" value="{{ $schedule }}">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+            <div
+                class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div
+                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            Confirm !!
+                        </h3>
+                        <div class="mt-2 flex flex-col gap-4">
+                            <label for="room_number" class="text-sm leading-5 text-gray-500">
+                                Plese add Room number
+                            </label>
+                            <input type="text" id="passwordIp" name="password" placeholder="add Room number"
+                                class=" rounded-lg w-72">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                    <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                        <button type="submit"
+                            class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                            Confirm
+                        </button>
+                    </span>
+                    <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                        <button type="button" id="cancel-btn"
+                            class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                            Cancel
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
 
 
     <script>
-        // เลือกปุ่ม "Accept" โดยใช้ ID หรือคลาสหรือเลือกตามที่คุณต้องการ
-        const acceptButton = document.querySelector('.accept-button');
+        const acceptButtons = document.querySelectorAll('.accept-button');
         const myModal = document.getElementById('myModal');
         const cancelBtn = document.getElementById('cancel-btn');
         const passwordIp = document.getElementById('passwordIp');
 
-        // เมื่อคลิกที่ปุ่ม "Accept" ให้แสดงโมเดิล
-        acceptButton.addEventListener('click', function() {
-            myModal.classList.remove('hidden');
-            // ทำสิ่งอื่น ๆ ที่คุณต้องการแสดงข้อมูลตารางในโมเดิลนี้
+        acceptButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                myModal.classList.remove('hidden');
+            });
         });
 
         cancelBtn.addEventListener('click', function() {
