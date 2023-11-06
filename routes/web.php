@@ -45,10 +45,8 @@ Route::controller(BillController::class)->group(function() {
 });
 
 Route::controller(ExpenseController::class)->group(function() {
-    Route::get('/expense/elec/create', [ExpenseController::class, 'elec'])->name('expense.elec');
-    Route::get('/expense/water/create', [ExpenseController::class, 'water'])->name('expense.water');
-    Route::post('/expense/elec/store', [ExpenseController::class, 'elec_store'])->name('expense.elec_store');
-    Route::post('/expense/water/store', [ExpenseController::class, 'water_store'])->name('expense.water_store');
+    Route::get('/expense/create', [ExpenseController::class, 'create'])->name('expense.create');
+    Route::post('/expense/store', [ExpenseController::class, 'store'])->name('expense.store');
 });
 
 
