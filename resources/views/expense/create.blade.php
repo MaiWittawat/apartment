@@ -68,7 +68,7 @@
                                         class="border border-gray-300 shadow mb-4 px-5 pb-2.5 w-2/3 rounded-lg @error('rental_period') border-red-600 @enderror">
 
         <div class="p-6 border-t border-gray-200 rounded-b">
-            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Submit</button>
+            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Create Bill</button>
         </div>
         
     </form>

@@ -17,12 +17,4 @@ class BillController extends Controller
     public function history() {
         return view('bill.history');
     }
-
-    public function create() {
-        return view('bill.create');
-    }
-
-    public function store() {
-        
-    }
 }

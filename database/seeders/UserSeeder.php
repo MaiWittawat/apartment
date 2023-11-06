@@ -20,14 +20,5 @@ class UserSeeder extends Seeder
         $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
         $user->role = 'ADMIN';
         $user->save();
-
-        // $user = new User();
-        // $user->name = 'staff';
-        // $user->email = 'staff@example.com';
-        // $user->phone_number = '0800000000';
-        // $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
-        // $user->role = 'STAFF';
-        // $user->save();
-
     }
 }

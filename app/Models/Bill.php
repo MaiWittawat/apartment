@@ -9,8 +9,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bill extends Model
 {
-    use HasFactory, SoftDeletes;
+
+    protected $casts = [
+        'rental_period' => 'date',
+    ];
+
+    use HasFactory;
     public function expense() {
         return $this->hasOne(Expense::class);
     }
+
+    public function calBill() {
+        $current = $this->expense()->first();
+
+        return $current;
+    }
+
 }

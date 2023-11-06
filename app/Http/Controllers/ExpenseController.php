@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Expense;
-
+use App\Models\Bill;
 
 class ExpenseController extends Controller
 {
@@ -43,7 +43,10 @@ class ExpenseController extends Controller
             $expense->room()->associate($room);
             $expense->save();
 
-            
+            $bill = new Bill();
+            $bill->rental_period = $request->get('rental_period');
+            $bill->expense_id = $expense->id;
+            $bill->save();
         }
 
 

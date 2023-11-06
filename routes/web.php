@@ -40,8 +40,6 @@ Route::controller(BillController::class)->group(function() {
     Route::get('/bill', [BillController::class, 'index'])->name('bill');
     Route::get('/bill/show', [BillController::class, 'show'])->name('bill.show');
     Route::get('/bill/history', [BillController::class, 'history'])->name('bill.history');
-    // Route::get('/bill/create', [BillController::class, 'create'])->name('bill.create');
-    // Route::post('/bill/store', [BillController::class, 'store'])->name('bill.store');
 });
 
 Route::controller(ExpenseController::class)->group(function() {

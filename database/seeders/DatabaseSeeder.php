@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Room;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,5 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoomSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ExpenseSeeder::class);
     }
 }

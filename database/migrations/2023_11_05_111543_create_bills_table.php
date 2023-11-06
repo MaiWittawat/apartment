@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->integer('overdue')->nullable();
             $table->boolean('status')->default(false); //false is not paid, //true is paid
             $table->date('rental_period');
             $table->date('paid_date')->nullable();
