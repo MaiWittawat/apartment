@@ -24,7 +24,6 @@ class ContractController extends Controller
 
         $room = Room::where('room_number', $request->room_number)->first();
 
-        dd($room);
 
         $user = json_decode($request->input('user'));
 
@@ -37,7 +36,9 @@ class ContractController extends Controller
 
         $contract->save();
 
+        $users = User::where('role', 'USER')->get();
 
-        return redirect('contract.create');
+
+        return redirect()->route('contract.create',["users" => $users])->with('success', "add {$user->name} to {$room->room_number}, Successfully.");
     }
 }

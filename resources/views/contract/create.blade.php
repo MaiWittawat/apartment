@@ -16,8 +16,8 @@
                     <div class="bg-white border-4 rounded-lg shadow relative mx-10">
                         <h1
                             class="text-4xl h-screen border-2 border-white bg-white rounded-lg flex items-center justify-center">
-                            No Incoming Appointment</h1>
-                    </div>
+                            Nothing user</h1>
+                </div>
                     <div class="grid grid-cols-8 p-2"></div>
                 @else
                     <table class="min-w-full leading-normal">

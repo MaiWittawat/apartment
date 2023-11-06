@@ -6,6 +6,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,6 @@ Route::controller(ScheduleController::class)->group(function() {
     Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
     Route::put('/schedule/accept/{schedule}', [ScheduleController::class, 'accept'])->name('schedule.accept');
     Route::put('/schedule/cancel/{schedule}', [ScheduleController::class, 'cancel'])->name('schedule.cancel');
-
 });
 
 Route::controller(BillController::class)->group(function() {
@@ -49,8 +49,10 @@ Route::controller(ExpenseController::class)->group(function() {
     Route::post('/expense/store', [ExpenseController::class, 'store'])->name('expense.store');
 });
 
-Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.crate');
+Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
 Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
+
+Route::get('/room', [RoomController::class, 'index'])->name('room.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
