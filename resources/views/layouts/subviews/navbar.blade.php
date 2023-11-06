@@ -35,7 +35,7 @@
                 <div class="inline-flex rounded-full shadow">
                     <a href="{{ route('login') }}"
                         class="inline-flex items-center px-4 py-2 text-base text-gray-900  border border-transparent rounded-md cursor-pointer font-base hover:bg-green-500 hover:text-white">
-                        Sign in
+                        Login
                     </a>
                 </div>
             </div>

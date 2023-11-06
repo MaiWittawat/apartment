@@ -3,11 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
-use App\Http\Controllers\CompaintController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\RoomController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,18 +22,18 @@ ese
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 })->name('home');
 
 
 
 Route::controller(ScheduleController::class)->group(function () {
-    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
     Route::put('/schedule/accept/{schedule}', [ScheduleController::class, 'accept'])->name('schedule.accept');
     Route::put('/schedule/cancel/{schedule}', [ScheduleController::class, 'cancel'])->name('schedule.cancel');
@@ -49,9 +50,20 @@ Route::controller(ExpenseController::class)->group(function () {
     Route::post('/expense/store', [ExpenseController::class, 'store'])->name('expense.store');
 });
 
-
+Route::controller(ComplaintController::class)->group(function () {
+    Route::get('/complaints', [ComplaintController::class, 'index'])->name('complaints.index');
+    Route::get('/complaints/show', [ComplaintController::class, 'show'])->name('complaints.show');
+    Route::get('/complaints/create/general', [ComplaintController::class, 'general'])->name('complaints.general');
+    Route::get('/complaints/create/maintenance', [ComplaintController::class, 'maintenance'])->name('complaints.maintenance');
+    Route::post('/complaints/store', [ComplaintController::class, 'store'])->name('complaints.store');
+});
 
 Route::get('/room', [RoomController::class, 'index'])->name('room.index');
+
+Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
+Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
+Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
+
 
 // Route::group(['middleware' => ['checkUserRole']], function () {
 //     Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
@@ -59,10 +71,6 @@ Route::get('/room', [RoomController::class, 'index'])->name('room.index');
 //     Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
 // });
 
-Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
-Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
-Route::get('/compaints', [CompaintController::class, 'index'])->name('compaints.index');
-Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
 
 
 Route::get('/dashboard', function () {
