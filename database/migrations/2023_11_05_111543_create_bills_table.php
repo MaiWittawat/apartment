@@ -17,7 +17,6 @@ return new class extends Migration
             $table->boolean('status')->default(false); //false is not paid, //true is paid
             $table->date('rental_period');
             $table->date('paid_date')->nullable();
-            $table->foreignIdFor(Expense::class);
             $table->timestamps();
         });
     }

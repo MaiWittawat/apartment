@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Room;
+use App\Models\Bill;
 
 return new class extends Migration
 {
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->date('rental_period');
             $table->integer('other_expense')->nullable();
             $table->foreignIdFor(Room::class);
+            $table->foreignIdFor(Bill::class)->nullable();
             $table->timestamps();
         });
     }

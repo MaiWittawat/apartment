@@ -20,7 +20,7 @@ class Expense extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function bill(): BelongsTo {
+    public function bill() {
         return $this->belongsTo(Bill::class);
     }
 
@@ -29,7 +29,7 @@ class Expense extends Model
         $firstDayOfLastMonth = $this->rental_period->subMonthNoOverflow()->startOfMonth();
         $lastDayOfLastMonth = $this->rental_period->subMonthNoOverflow()->endOfMonth();
 
-        $expensesLastMonth = Expense::whereBetween('rental_period', [$firstDayOfLastMonth, $lastDayOfLastMonth])->where('room_id', $room)->get();
+        $expensesLastMonth = Expense::whereBetween('rental_period', [$firstDayOfLastMonth, $lastDayOfLastMonth])->where('room_id', $room)->first();
         return $expensesLastMonth;
     }
 }

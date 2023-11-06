@@ -11,7 +11,7 @@ class ExpenseController extends Controller
 {
     public function create() {
         // $rooms = Room::get();
-        $rooms = Room::take(5)->get();
+        $rooms = Room::take(2)->get();
         return view('expense.create', [
             'rooms' => $rooms
         ]);
@@ -36,16 +36,19 @@ class ExpenseController extends Controller
             $room_num = substr($keys[$i], 5);
             $room = Room::where('room_number', $room_num)->first();
 
+            $bill = new Bill();
+            $bill->rental_period = $request->get('rental_period');
+            $bill->save(); // Save the bill first
+            
             $expense = new Expense();
             $expense->elec_unit = $elec;
             $expense->water_unit = $water;
             $expense->rental_period = $request->get('rental_period');
             $expense->room()->associate($room);
-            $expense->save();
-
-            $bill = new Bill();
-            $bill->rental_period = $request->get('rental_period');
-            $bill->expense_id = $expense->id;
+            $expense->bill()->associate($bill); // Associate the bill with the expense
+            $expense->save(); // Save the expense
+            
+            $bill->expense()->save($expense); // Associate the expense with the bill (optional, depending on your setup)
             $bill->save();
         }
 
