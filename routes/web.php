@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\CompaintController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ExpenseController;
@@ -30,29 +31,39 @@ Route::get('/home', function () {
 
 
 
-Route::controller(ScheduleController::class)->group(function() {
+Route::controller(ScheduleController::class)->group(function () {
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedule.index');
-    Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
     Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
     Route::put('/schedule/accept/{schedule}', [ScheduleController::class, 'accept'])->name('schedule.accept');
     Route::put('/schedule/cancel/{schedule}', [ScheduleController::class, 'cancel'])->name('schedule.cancel');
 });
 
-Route::controller(BillController::class)->group(function() {
+Route::controller(BillController::class)->group(function () {
     Route::get('/bill', [BillController::class, 'index'])->name('bill');
     Route::get('/bill/show', [BillController::class, 'show'])->name('bill.show');
     Route::get('/bill/history', [BillController::class, 'history'])->name('bill.history');
 });
 
-Route::controller(ExpenseController::class)->group(function() {
+Route::controller(ExpenseController::class)->group(function () {
     Route::get('/expense/create', [ExpenseController::class, 'create'])->name('expense.create');
     Route::post('/expense/store', [ExpenseController::class, 'store'])->name('expense.store');
 });
 
-Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
-Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
+
 
 Route::get('/room', [RoomController::class, 'index'])->name('room.index');
+
+// Route::group(['middleware' => ['checkUserRole']], function () {
+//     Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
+//     Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
+//     Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
+// });
+
+Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
+Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
+Route::get('/compaints', [CompaintController::class, 'index'])->name('compaints.index');
+Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -64,4 +75,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

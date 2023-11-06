@@ -16,14 +16,30 @@ class ContractController extends Controller
         return view('contract.create',["users" => $users]);
     }
 
+
     public function store(Request $request){
 
         $request->validate([
             'room_number' => ['required', 'integer'],
         ]);
 
+        $users = User::where('role', 'USER')->get();
+
+
         $room = Room::where('room_number', $request->room_number)->first();
 
+        if($room == null){
+            return redirect()->route('contract.create',["users" => $users])->with('fail', "Room not found, Fail.");
+        }
+
+        $extRoom = Contract::where('room_id', $room->id)->first();
+
+
+        if($extRoom != null){
+            if($extRoom->status){
+                return redirect()->route('contract.create',["users" => $users])->with('fail', "This room has still rent, Fail.");
+            }
+        }
 
         $user = json_decode($request->input('user'));
 
@@ -35,9 +51,6 @@ class ContractController extends Controller
         $contract->security_deposit = $room->price*3;
 
         $contract->save();
-
-        $users = User::where('role', 'USER')->get();
-
 
         return redirect()->route('contract.create',["users" => $users])->with('success', "add {$user->name} to {$room->room_number}, Successfully.");
     }

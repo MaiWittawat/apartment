@@ -2,16 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
+use App\Models\Room;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
-        return view('room.index');
+
+        if($user == null){
+            return redirect();
+        }
+        
+        $contracts = Contract::where('user_id', $user->id)->get();
+
+        $rooms = Room::where('room_id', $contracts->room_id);
+
+        return view('room.index',['rooms' => $rooms]);
     }
 
     /**

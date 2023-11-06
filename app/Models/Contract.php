@@ -10,12 +10,12 @@ use App\Models\User;
 
 class Contract extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     public function room() {
         return $this->belongsTo(Room::class);
     }
 
     public function user() {
         return $this->belongsTo(User::class);
-    }    
+    }
 }
