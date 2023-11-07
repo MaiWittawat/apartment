@@ -1,4 +1,5 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -53,11 +54,11 @@
                         </x-nav-link>
                     </div> --}}
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('complaints.index')" :active="request()->routeIs('compaints.index')">
                             {{ __('Compaint') }}
                         </x-nav-link>
-                    </div>
+                    </div> --}}
                 @endif
             </div>
 

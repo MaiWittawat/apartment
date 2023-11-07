@@ -11,6 +11,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+            @include('alert')
+
             <div class="flex flex-col mt-16">
                 <div class="">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -20,7 +22,7 @@
                                     <tr>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Room</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Detail</th>
-                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Response</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Type</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Create At</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Show</th>
                                     </tr>
@@ -30,7 +32,7 @@
                                     <tr class="border-b">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{$comp->room->room_number}}</td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->detail }}</td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->response }}</td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->type }}</td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->created_at }}</td>
 
                                         <td class="flex mt-2">

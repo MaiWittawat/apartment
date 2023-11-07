@@ -57,6 +57,8 @@ Route::controller(ComplaintController::class)->group(function () {
     Route::get('/complaints/create/maintenance', [ComplaintController::class, 'maintenance'])->name('complaints.maintenance');
     Route::post('/complaints/storeMain', [ComplaintController::class, 'storeMain'])->name('complaints.storeMain');
     Route::post('/complaints/storeGen', [ComplaintController::class, 'storeGen'])->name('complaints.storeGen');
+    Route::post('/complaints/endMain', [ComplaintController::class, 'endMain'])->name('complaints.endMain');
+    
 });
 
 Route::get('/room', [RoomController::class, 'index'])->name('room.index');

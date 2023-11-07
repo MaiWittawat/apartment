@@ -12,7 +12,15 @@
 
     </x-slot>
 
-
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -95,9 +103,9 @@
                                         </div>
                                     @endif
 
-                                @else
+                                @elseif (Auth::user()->role == 'USER' && $complaint->status == 'SCHEDULED')
 
-                                    <form action="{{ route('complaints.addImage',['coplaint' => $complaint]) }}" method="POST">
+                                    <form action="{{ route('complaints.addImage',['coplaint' => $complaint]) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
                                         <label for="image"></label>
@@ -106,6 +114,16 @@
                                         <input type="file" name="image" accept="image/*">
 
                                         <button type="submit" class="mt-2 boder-2 bg-blue-500 w-3/5 px-2 py-1 rounded text-white">Add</button>
+                                    </form>
+
+                                @elseif (Auth::user()->role == 'ADMIN' && $complaint->status == 'FIXED')
+                                    <form method="POST"
+                                        action="{{ route('complaints.endMain', ['complaint' => $complaint]) }}"
+                                        class=" flex flex-col">
+                                        @csrf
+                                        <button type="submit"
+                                            class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
+                                            end </button>
                                     </form>
 
                                 @endif

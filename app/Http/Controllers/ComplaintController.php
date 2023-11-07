@@ -16,7 +16,7 @@ class ComplaintController extends Controller
         $id = request('room');
         $room = Room::find($id);
 
-        $comps = Complaint::get();
+        $comps = Complaint::orderBy('created_at', 'desc')->get();
 
         return view('complaints.index',['room'=>$room, 'complaints' => $comps]);
     }
@@ -24,7 +24,7 @@ class ComplaintController extends Controller
     public function admin(){
 
         $rooms = Room::all();
-        $complaints = Complaint::with('room')->get();
+        $complaints = Complaint::with('room')->orderBy('created_at', 'desc')->get();
 
         return view('complaints.admin', [
             "rooms" => $rooms,
@@ -147,24 +147,23 @@ class ComplaintController extends Controller
 
     public function addImage(Request $request){
         // dd($request->all());
-        // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'coplaint' => ['required']
-        // ]);
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'coplaint' => ['required']
+        ]);
 
 
         $id = request('coplaint');
         // dd($id);
         $comp = Complaint::find($id);
         // dd($comp);
+        
+        if($request->file('image') != null )
+        {
+            $imagePath = $request->file('image')->store('eventImages', 'public'); // Store image in 'public/images' folder
 
-
-        // dd($request->image);
-        $imgPath = $request->file('image')->store('image', 'public');
-        // $imagePath = $request->image->store('images', 'public');
-
-
-        $comp->img = $imgPath;
+            $comp->img = $imagePath;
+        }
 
         $comp->status = "FIXED";
 
@@ -173,5 +172,20 @@ class ComplaintController extends Controller
         $room = $comp->room()->first();
 
         return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Response, Successfully.');
+    }
+
+    public function endMain(Request $request){
+
+        $request->validate([
+            "complaint" => ['required'],
+        ]);
+
+
+        $id = request('complaint');
+        $comp = Complaint::find($id);
+        $comp->status = "END";
+        $comp->save();
+
+        return redirect()->route('complaints.admin')->with('success', 'End Maintenance Complaint, Successfully.');
     }
 }
