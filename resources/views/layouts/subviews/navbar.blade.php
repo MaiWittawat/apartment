@@ -32,9 +32,9 @@
                 </li>
             </div>
 
-            @if (Route::has('login'))
-            <div>{{Auth::user()->name}}</div>
-            @else
+            {{-- @if (Route::has('login'))
+                <div>{{Auth::user()->name}}</div>
+            @else --}}
             <div  class="hidden  md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                 <div class="inline-flex shadow">
                     <a href="{{ route('login') }}"
@@ -43,6 +43,6 @@
                     </a>
                 </div>
             </div>
-            @endif
+            {{-- @endif --}}
         </nav>
 </div>
