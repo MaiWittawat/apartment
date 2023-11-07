@@ -19,7 +19,7 @@
         <div class="overlay">
             <div class="navbar flex">
                 <div class="logo">
-                    <img src="https://cdn.discordapp.com/attachments/1128653291283288159/1171219667885506681/Pngtreeapartment_ground_logo_6237449.png?ex=655be251&is=65496d51&hm=cbd7ebd937a7e87506cda9f553a290539b5d4695a10e774a10a1f6c544881190&" alt="" class="h-24">logo
+                    <img src="https://cdn.discordapp.com/attachments/1128653291283288159/1171219667885506681/Pngtreeapartment_ground_logo_6237449.png?ex=655be251&is=65496d51&hm=cbd7ebd937a7e87506cda9f553a290539b5d4695a10e774a10a1f6c544881190&" alt="" class="h-24">
                 </div>
 
                 <div class="menu-icon">

@@ -6,6 +6,8 @@ use App\Models\Complaint;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class ComplaintController extends Controller
 {
@@ -61,7 +63,7 @@ class ComplaintController extends Controller
     }
 
     public function storeMain(Request $request) {
-
+        // dd($request->all());
         $id = request('room');
         $room = Room::find($id);
 
@@ -75,6 +77,7 @@ class ComplaintController extends Controller
         $comp->detail = $request->detail;
         $comp->type = "MAINTENANCE";
         $comp->status = "PENDING";
+        $comp->customer_appointment_date = $request->customer_appointment_date;
         $comp->save();
 
         return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Complaint, Successfully.');
@@ -82,6 +85,7 @@ class ComplaintController extends Controller
 
 
     public function storeGen(Request $request) {
+
         $request->validate([
             "room" => ['required'],
             "detail" => ['required']
@@ -99,4 +103,75 @@ class ComplaintController extends Controller
         return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Complaint, Successfully.');
     }
 
+
+    public function editGen(Request $request){
+
+        $request->validate([
+            "complaint" => ['required'],
+            "response" => ['required']
+        ]);
+
+
+        $id = request('complaint');
+
+
+        $comp = Complaint::find($id);
+
+        $comp->response = $request->response;
+
+        $comp->response_date = now();
+
+        $comp->save();
+
+        return redirect()->route('complaints.admin')->with('success', 'Add Response, Successfully.');
+    }
+
+
+    public function editMain(Request $request){
+
+        $request->validate([
+            "complaint" => ['required'],
+            "appointment_date" => ['required']
+        ]);
+
+
+        $id = request('complaint');
+        $comp = Complaint::find($id);
+        $comp->status = "SCHEDULED";
+        $comp->appointment_date = $request->appointment_date;
+        $comp->save();
+
+        return redirect()->route('complaints.admin')->with('success', 'Add Response, Successfully.');
+    }
+
+
+    public function addImage(Request $request){
+        // dd($request->all());
+        // $request->validate([
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'coplaint' => ['required']
+        // ]);
+
+
+        $id = request('coplaint');
+        // dd($id);
+        $comp = Complaint::find($id);
+        // dd($comp);
+
+
+        // dd($request->image);
+        $imgPath = $request->file('image')->store('image', 'public');
+        // $imagePath = $request->image->store('images', 'public');
+
+
+        $comp->img = $imgPath;
+
+        $comp->status = "FIXED";
+
+        $comp->save();
+
+        $room = $comp->room()->first();
+
+        return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Response, Successfully.');
+    }
 }

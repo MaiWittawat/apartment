@@ -36,18 +36,18 @@
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="appointment_date" class="text-sm font-medium text-gray-900 block mb-2">Enter your
+                                    <label for="customer_appointment_date" class="text-sm font-medium text-gray-900 block mb-2">Enter your
                                         appointment date</label>
 
-                                    @error('appointment_date')
+                                    @error('customer_appointment_date')
                                         <div class="text-red-600">
                                             {{ $message }}
                                         </div>
                                     @enderror
 
-                                    <input required type="date" id="appointment_date" name="appointment_date" autocomplete="off"
+                                    <input required type="date" id="customer_appointment_date" name="customer_appointment_date" autocomplete="off"
                                         placeholder="Put in your appointment date"
-                                        class="border border-gray-300 shadow mb-4 px-5 pb-2.5 w-2/3 rounded-lg @error('appointment_date') border-red-600 @enderror">
+                                        class="border border-gray-300 shadow mb-4 px-5 pb-2.5 w-2/3 rounded-lg @error('customer_appointment_date') border-red-600 @enderror">
                                 </div>
 
 
@@ -75,4 +75,6 @@
             </div>
         </div>
     </div>
+
+    
 </x-app-layout>

@@ -67,6 +67,11 @@ Route::post('/contract/store', [ContractController::class, 'store'])->name('cont
 
 Route::get('/all-complaint', [ComplaintController::class, 'admin'])->name('complaints.admin');
 
+Route::post('/complaint/editMain', [ComplaintController::class, 'editMain'])->name('complaints.editMain');
+Route::post('/complaint/editGen', [ComplaintController::class, 'editGen'])->name('complaints.editGen');
+
+Route::post('/complaint/addImage', [ComplaintController::class, 'addImage'])->name('complaints.addImage');
+
 // Route::group(['middleware' => ['checkUserRole']], function () {
 //     Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');
 //     Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
