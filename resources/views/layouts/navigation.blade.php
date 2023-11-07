@@ -36,11 +36,11 @@
                         </x-nav-link>
                     </div>
 
-                @else
+                @elseif (Auth::user()->role == 'USER')
                     <!-- Navigation Links -->
 
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('bill')" :active="request()->routeIs('bill')">
                             {{ __('Bill') }}
                         </x-nav-link>
@@ -51,13 +51,13 @@
                         <x-nav-link :href="route('bill.history')" :active="request()->routeIs('bill.history')">
                             {{ __('Bill History') }}
                         </x-nav-link>
-                    </div>
+                    </div> --}}
 
-                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('complaints.index')" :active="request()->routeIs('compaints.index')">
                             {{ __('Compaint') }}
                         </x-nav-link>
-                    </div> --}}
+                    </div>
                 @endif
             </div>
 
