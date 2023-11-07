@@ -22,7 +22,7 @@
                     <div class="col-span-6 sm:col-span-3">
                         <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Name</label>
                         <input type="text" required value="{{ old('name', '') }}" @error('name') border-red-600 @enderror
-                            name="product-n ame" id="name"
+                            name="name" id="name"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                             placeholder="Add Name”" required="">
 
@@ -41,7 +41,7 @@
                             placeholder="@Email" required="">
 
                         @error('email')
-                            <div class="text-red-600">
+                        <div class="text-red-600">
                                 {{ $message }}
                             </div>
                         @enderror
@@ -74,7 +74,7 @@
                         @enderror
 
                         <input required type="date" id="appointment_date" name="appointment_date" autocomplete="off"
-                            placeholder="Put in your appointment date" 
+                            placeholder="Put in your appointment date"
                             class="border border-gray-300 shadow mb-4 px-5 pb-2.5 w-2/3 rounded-lg @error('appointment_date') border-red-600 @enderror">
                     </div>
 

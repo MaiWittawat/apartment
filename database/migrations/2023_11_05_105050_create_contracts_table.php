@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('status'); //true if still rent, false if not rent anymore
             $table->integer('security_deposit');
-            $table->foreignIdFor(Room::class);
+            $table->foreignIdFor(Room::class); 
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

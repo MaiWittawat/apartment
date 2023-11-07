@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 
 Route::controller(ScheduleController::class)->group(function () {
-    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
     Route::put('/schedule/accept/{schedule}', [ScheduleController::class, 'accept'])->name('schedule.accept');
     Route::put('/schedule/cancel/{schedule}', [ScheduleController::class, 'cancel'])->name('schedule.cancel');
@@ -55,7 +55,8 @@ Route::controller(ComplaintController::class)->group(function () {
     Route::get('/complaints/show', [ComplaintController::class, 'show'])->name('complaints.show');
     Route::get('/complaints/create/general', [ComplaintController::class, 'general'])->name('complaints.general');
     Route::get('/complaints/create/maintenance', [ComplaintController::class, 'maintenance'])->name('complaints.maintenance');
-    Route::post('/complaints/store', [ComplaintController::class, 'store'])->name('complaints.store');
+    Route::post('/complaints/storeMain', [ComplaintController::class, 'storeMain'])->name('complaints.storeMain');
+    Route::post('/complaints/storeGen', [ComplaintController::class, 'storeGen'])->name('complaints.storeGen');
 });
 
 Route::get('/room', [RoomController::class, 'index'])->name('room.index');
@@ -64,6 +65,7 @@ Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.c
 Route::get('/contract/create', [ContractController::class, 'create'])->name('contract.create');
 Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
 
+Route::get('/all-complaint', [ComplaintController::class, 'admin'])->name('complaints.admin');
 
 // Route::group(['middleware' => ['checkUserRole']], function () {
 //     Route::get('/schedule', [ScheduleController::class, 'create'])->name('schedule.create');

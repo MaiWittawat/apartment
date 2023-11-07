@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Room::class);
 
             //type = general
-            $table->string('response')->nullable();
+            $table->string('response')->default("NO");
             $table->date('response_date')->nullable();
 
             //type = maintenance

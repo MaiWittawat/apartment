@@ -44,9 +44,9 @@
                 <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum <br>
                     alias et commodi sed delectus ab laborum asperiores possimus quis sit, beatae vel <br>
                     cupiditate pariatur corrupti eveniet eligendi! Asperiores, pariatur incidunt.</h3>
-                <div>
-                    <button >Get Start</button>
-                    <button class="btn-2">go to website</button>
+                <div class="">
+                    <a href="{{route('schedule.create')}}" class="py-5 px-16 btn rounded-full">Schedule</a>
+                    <a href="{{route('login')}}" class="btn-2 py-5 px-10 btn rounded-full">go to website</a>
                 </div>
             </div>
         </div>
@@ -142,12 +142,9 @@
     line-height: 25px;
 }
 
-button{
-    width: 200px;
-    padding: 15px 0;
+.btn{
     text-align: center;
     margin: 0 10px;
-    border-radius: 25px;
     font-weight: bold;
     border: 2px solid #fe7250;
     background: #fe7250;
@@ -156,7 +153,7 @@ button{
     transition: background 0.5s;
 }
 
-button:hover{
+.btn:hover{
     background: transparent;
     border: 2px solid #fff;
 }

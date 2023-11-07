@@ -21,7 +21,7 @@ class CheckUserRole
             if ($user->role === 'ADMIN') {
                 // return redirect()->route('dashboard');
             } elseif ($user->role === 'USER') {
-                return redirect()->route('bill.index');
+                // return redirect()->route('bill.index');
             }
         }
 

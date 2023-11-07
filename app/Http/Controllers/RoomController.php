@@ -5,25 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Contract;
 use App\Models\Room;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index()
     {
+        $user = Auth::user();
 
-        if($user == null){
+        if ($user == null) {
             return redirect();
         }
-        
-        $contracts = Contract::where('user_id', $user->id)->get();
 
-        $rooms = Room::where('room_id', $contracts->room_id);
+        $contracts = Contract::where('user_id', $user->id)
+            ->with('room')
+            ->get();
 
-        return view('room.index',['rooms' => $rooms]);
+        $rooms = $contracts->pluck('room');
+
+        return view('room.index', ['rooms' => $rooms, "user"=>$user]);
     }
 
     /**

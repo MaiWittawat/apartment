@@ -31,13 +31,18 @@
                     </a>
                 </li>
             </div>
-            <div class="hidden  md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                <div class="inline-flex rounded-full shadow">
+
+            @if (Route::has('login'))
+            <div>{{Auth::user()->name}}</div>
+            @else
+            <div  class="hidden  md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+                <div class="inline-flex shadow">
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center px-4 py-2 text-base text-gray-900  border border-transparent rounded-md cursor-pointer font-base hover:bg-green-500 hover:text-white">
+                        class="inline-flex items-center px-4 py-2 text-base bg-orange-500  text-white  border border-orange-500 cursor-pointer font-base hover:bg-white hover:text-orange-600">
                         Login
                     </a>
                 </div>
             </div>
+            @endif
         </nav>
 </div>
