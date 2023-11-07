@@ -110,6 +110,8 @@
                                             <label class="text-sm font-medium text-gray-900 block mb-2">Response</label>
                                             <textarea  class="w-full border-1 outline-none rounded-md" name="response" id="response" cols="30"
                                                 rows="10"></textarea>
+
+                                            <button type="submit" class="rounded-md p-2 bg-green-500 mt-4 shadow-lg text-white border-2"> submit </button>
                                         </form>
 
                                     @endif
@@ -117,22 +119,7 @@
                             </div>
                         </div>
 
-                        @if (Auth::user()->role == "ADMIN")
-                        <a href="{{ route('complaints.admin') }}"
-                            class="p-6 border-t border-gray-200 rounded-b">
-                            <button
-                                class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                type="submit">Back</button>
-                        </a>
 
-                        @else
-                        <a href="{{ route('complaints.index', ['room' => $room]) }}"
-                            class="p-6 border-t border-gray-200 rounded-b">
-                            <button
-                                class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                type="submit">Back</button>
-                        </a>
-                        @endif
                     @endif
                 </div>
 
