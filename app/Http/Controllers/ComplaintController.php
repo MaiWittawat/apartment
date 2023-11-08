@@ -11,29 +11,41 @@ use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 
         $id = request('room');
         $room = Room::find($id);
 
-        $comps = Complaint::orderBy('created_at', 'desc')->get();
+        $comps = Complaint::with('room')
+        ->whereIn('status', ['PENDING', 'SCHEDULED', 'FIXED', 'END'])
+        ->orderBy('status')
+        ->orderBy('created_at')
+        ->get();
 
-        return view('complaints.index',['room'=>$room, 'complaints' => $comps]);
+
+        return view('complaints.index', ['room' => $room, 'complaints' => $comps]);
     }
 
-    public function admin(){
+    public function admin()
+    {
 
         $rooms = Room::all();
-        $complaints = Complaint::with('room')->orderBy('created_at', 'desc')->get();
+        $comps = Complaint::with('room')
+            ->whereIn('status', ['PENDING', 'SCHEDULED', 'FIXED', 'END'])
+            ->orderBy('status')
+            ->orderBy('created_at')
+            ->get();
+
 
         return view('complaints.admin', [
             "rooms" => $rooms,
-            "complaints" => $complaints,
+            "complaints" => $comps,
         ]);
-
     }
 
-    public function show() {
+    public function show()
+    {
 
         $id = request('room');
 
@@ -45,25 +57,27 @@ class ComplaintController extends Controller
 
         $user = Auth::user();
 
-        return view('complaints.show',['room'=>$room, "complaint"=> $comp, "user"=> $user]);
+        return view('complaints.show', ['room' => $room, "complaint" => $comp, "user" => $user]);
     }
 
-    public function general() {
+    public function general()
+    {
         $id = request('room');
         $room = Room::find($id);
 
-        return view('complaints.createGeneral',["room"=>$room]);
+        return view('complaints.createGeneral', ["room" => $room]);
     }
 
-    public function maintenance() {
+    public function maintenance()
+    {
         $id = request('room');
         $room = Room::find($id);
 
-        return view('complaints.createMaintenance',['room'=>$room]);
+        return view('complaints.createMaintenance', ['room' => $room]);
     }
 
-    public function storeMain(Request $request) {
-        // dd($request->all());
+    public function storeMain(Request $request)
+    {
         $id = request('room');
         $room = Room::find($id);
 
@@ -71,6 +85,10 @@ class ComplaintController extends Controller
             "room" => ['required'],
             "detail" => ['required']
         ]);
+
+        if ($request->customer_appointment_date < now()) {
+            return back()->withErrors(['customer_appointment_date' => 'Time is valid']);
+        }
 
         $comp = new Complaint();
         $comp->room_id = $room->id;
@@ -80,11 +98,12 @@ class ComplaintController extends Controller
         $comp->customer_appointment_date = $request->customer_appointment_date;
         $comp->save();
 
-        return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Complaint, Successfully.');
+        return redirect()->route('complaints.index', ["room" => $room])->with('success', 'Add Complaint, Successfully.');
     }
 
 
-    public function storeGen(Request $request) {
+    public function storeGen(Request $request)
+    {
 
         $request->validate([
             "room" => ['required'],
@@ -100,11 +119,12 @@ class ComplaintController extends Controller
         $comp->type = "GENERAL";
         $comp->save();
 
-        return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Complaint, Successfully.');
+        return redirect()->route('complaints.index', ["room" => $room])->with('success', 'Add Complaint, Successfully.');
     }
 
 
-    public function editGen(Request $request){
+    public function editGen(Request $request)
+    {
 
         $request->validate([
             "complaint" => ['required'],
@@ -118,8 +138,9 @@ class ComplaintController extends Controller
         $comp = Complaint::find($id);
 
         $comp->response = $request->response;
-
         $comp->response_date = now();
+        $comp->stat = "END";
+
 
         $comp->save();
 
@@ -127,16 +148,20 @@ class ComplaintController extends Controller
     }
 
 
-    public function editMain(Request $request){
-
+    public function editMain(Request $request)
+    {
         $request->validate([
             "complaint" => ['required'],
             "appointment_date" => ['required']
         ]);
 
-
         $id = request('complaint');
         $comp = Complaint::find($id);
+
+        if ($request->appointment_date < now() && $request->appointment_date < $comp->customer_appointment_date) {
+            return back()->withErrors(['appointment_date' => 'Time is valid']);
+        }
+
         $comp->status = "SCHEDULED";
         $comp->appointment_date = $request->appointment_date;
         $comp->save();
@@ -145,7 +170,8 @@ class ComplaintController extends Controller
     }
 
 
-    public function addImage(Request $request){
+    public function addImage(Request $request)
+    {
         // dd($request->all());
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -157,9 +183,8 @@ class ComplaintController extends Controller
         // dd($id);
         $comp = Complaint::find($id);
         // dd($comp);
-        
-        if($request->file('image') != null )
-        {
+
+        if ($request->file('image') != null) {
             $imagePath = $request->file('image')->store('eventImages', 'public'); // Store image in 'public/images' folder
 
             $comp->img = $imagePath;
@@ -171,10 +196,11 @@ class ComplaintController extends Controller
 
         $room = $comp->room()->first();
 
-        return redirect()->route('complaints.index',["room"=>$room])->with('success', 'Add Response, Successfully.');
+        return redirect()->route('complaints.index', ["room" => $room])->with('success', 'Add Response, Successfully.');
     }
 
-    public function endMain(Request $request){
+    public function endMain(Request $request)
+    {
 
         $request->validate([
             "complaint" => ['required'],

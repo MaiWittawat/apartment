@@ -12,15 +12,6 @@
 
     </x-slot>
 
-    @if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -85,6 +76,15 @@
                                         <label for="appointment_date"></label>
                                         <input type="date" name="appointment_date">
 
+                                        @if ($errors->has('appointment_date'))
+                                            <div class="alert alert-danger text-red-600">
+                                                <ul>
+                                                    <li>{{ $errors->first('appointment_date') }}</li>
+                                                </ul>
+                                            </div>
+                                        @endif
+
+
                                         <button type="submit"
                                             class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
                                             submit </button>
@@ -102,28 +102,27 @@
                                                 submit </button>
                                         </div>
                                     @endif
-
                                 @elseif (Auth::user()->role == 'USER' && $complaint->status == 'SCHEDULED')
-
-                                    <form action="{{ route('complaints.addImage',['coplaint' => $complaint]) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('complaints.addImage', ['coplaint' => $complaint]) }}"
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
-
+                                        <div id="imagePreviews"></div>
                                         <label for="image"></label>
                                         <label for="room"></label>
-                                        <input type="text" class="hidden" name="room" value="{{$room}}">
-                                        <input type="file" name="image" accept="image/*">
-
-                                        <button type="submit" class="mt-2 boder-2 bg-blue-500 w-3/5 px-2 py-1 rounded text-white">Add</button>
+                                        <input type="text" class="hidden" name="room"
+                                            value="{{ $room }}">
+                                        <input type="file" name="image" accept="image/*" id="imageInput">
+                                        <button type="submit"
+                                            class="mt-2 boder-2 bg-blue-500 w-3/5 px-2 py-1 rounded text-white">Add</button>
                                     </form>
-
                                 @elseif (Auth::user()->role == 'ADMIN' && $complaint->status == 'FIXED')
                                     <form method="POST"
                                         action="{{ route('complaints.endMain', ['complaint' => $complaint]) }}"
                                         class=" flex flex-col">
                                         @csrf
                                         <button type="submit"
-                                            class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
-                                            end </button>
+                                            class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2"> end
+                                        </button>
                                     </form>
 
                                 @endif
@@ -131,12 +130,6 @@
 
                         </div>
 
-                        {{-- <a href="{{ route('complaints.index', ['room' => $room]) }}"
-                            class="p-6 border-t border-gray-200 rounded-b">
-                            <button
-                                class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                type="submit">Back</button>
-                        </a> --}}
                     @else
                         <div class="p-6 space-y-6">
                             <div>
@@ -155,34 +148,31 @@
 
 
                                     @if (Auth::user()->role == 'ADMIN')
-                                        @if ($complaint->response != 'NO')
+                                        @if ($complaint->status != 'PENDING')
                                             <div class="col-span-6 sm:col-span-6">
                                                 <label
                                                     class="text-sm font-medium text-gray-900 block mb-2">Response</label>
                                                 <textarea disabled class="w-full border-1 outline-none rounded-md" name="response" id="response" cols="30"
                                                     rows="10">{{ $complaint->response }}</textarea>
-
-                                                <button type="submit"
-                                                    class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
-                                                    submit </button>
-                                            </div>
-                                        @else
-                                            <form action="{{ route('complaints.editGen', ['complaint' => $complaint]) }}"
-                                                method="POST" class="col-span-6 sm:col-span-6">
-                                                @csrf
-                                                <label
-                                                    class="text-sm font-medium text-gray-900 block mb-2">Response</label>
-                                                <textarea class="w-full border-1 outline-none rounded-md" name="response" id="response" cols="30" rows="10"></textarea>
+                                            @else
+                                                <form
+                                                    action="{{ route('complaints.editGen', ['complaint' => $complaint]) }}"
+                                                    method="POST" class="col-span-6 sm:col-span-6">
+                                                    @csrf
+                                                    <label
+                                                        class="text-sm font-medium text-gray-900 block mb-2">Response</label>
+                                                    <textarea class="w-full border-1 outline-none rounded-md" name="response" id="response" cols="30"
+                                                        rows="10"></textarea>
 
 
 
-                                                <button type="submit"
-                                                    class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
-                                                    submit </button>
-                                            </form>
+                                                    <button type="submit"
+                                                        class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
+                                                        submit </button>
+                                                </form>
                                         @endif
                                     @else
-                                        @if ($complaint->response != 'NO')
+                                        @if ($complaint->status != 'PENDING')
                                             <div class="col-span-6 sm:col-span-6">
                                                 @csrf
                                                 <label
@@ -207,4 +197,64 @@
 
         </div>
     </div>
+
+
+    <script>
+        // document.getElementById('imageInput').addEventListener('change', function (e) {
+        //     displaySelectedImage(e.target);
+        // });
+
+        // function displaySelectedImage(input) {
+        //     if (input.files && input.files[0]) {
+        //         var reader = new FileReader();
+
+        //         reader.onload = function (e) {
+
+        //             var img = document.createElement('img');
+        //             img.src = e.target.result;
+        //             img.className = 'preview-image';
+
+        //             var imagePreviews = document.getElementById('imagePreviews');
+        //             imagePreviews.appendChild(img);
+        //         };
+
+        //         reader.readAsDataURL(input.files[0]);
+        //     }
+        // }
+    </script>
+
+    <script>
+        // เมื่อคุณเลือกไฟล์รูปภาพใน input
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            // เรียกฟังก์ชันเพื่อแสดงรูปภาพที่เลือก
+            displaySelectedImage(e.target);
+        });
+
+        // ฟังก์ชันสำหรับแสดงรูปภาพที่เลือก
+        function displaySelectedImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // ลบรูปภาพเก่า (ถ้ามี)
+                    var existingImage = document.querySelector('.preview-image');
+                    if (existingImage) {
+                        existingImage.remove();
+                    }
+
+                    // สร้าง <img> element เพื่อแสดงรูปภาพใหม่
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image'; // เพิ่มคลาสสำหรับสไตล์ (optional)
+
+                    // เพิ่ม <img> element ลงในส่วนที่คุณต้องการแสดงรูปภาพ (เช่น <div>)
+                    var imagePreviews = document.getElementById('imagePreviews');
+                    imagePreviews.appendChild(img);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
 </x-app-layout>

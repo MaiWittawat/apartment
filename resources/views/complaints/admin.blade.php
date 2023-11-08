@@ -23,6 +23,7 @@
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Room</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Detail</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Type</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Status</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Create At</th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Show</th>
                                     </tr>
@@ -31,10 +32,10 @@
                                     @foreach ($complaints as $comp)
                                     <tr class="border-b">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{$comp->room->room_number}}</td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->detail }}</td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ Str::limit($comp->detail, $limit = 10, $end = '...') }}</td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->type }}</td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->status }}</td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ $comp->created_at }}</td>
-
                                         <td class="flex mt-2">
                                             <a href="{{route('complaints.show', ['complaint' => $comp, 'room'=> $comp->room])}}"
                                                 class="middle none center rounded-lg bg-pink-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

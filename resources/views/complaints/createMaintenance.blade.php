@@ -39,15 +39,20 @@
                                     <label for="customer_appointment_date" class="text-sm font-medium text-gray-900 block mb-2">Enter your
                                         appointment date</label>
 
-                                    @error('customer_appointment_date')
-                                        <div class="text-red-600">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-
                                     <input required type="date" id="customer_appointment_date" name="customer_appointment_date" autocomplete="off"
                                         placeholder="Put in your appointment date"
-                                        class="border border-gray-300 shadow mb-4 px-5 pb-2.5 w-2/3 rounded-lg @error('customer_appointment_date') border-red-600 @enderror">
+                                        class="border border-gray-300 shadow mb-4 px-5 pb-2.5 w-2/3 rounded-lg">
+
+                                    @if ($errors->has('customer_appointment_date'))
+                                        <div class="alert alert-danger text-red-600">
+                                            <ul>
+                                                <li>{{ $errors->first('customer_appointment_date') }}</li>
+                                            </ul>
+                                        </div>
+                                    @endif
+
+
+
                                 </div>
 
 
@@ -76,5 +81,5 @@
         </div>
     </div>
 
-    
+
 </x-app-layout>

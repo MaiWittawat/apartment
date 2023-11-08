@@ -24,12 +24,12 @@
 
                 <div class="menu-icon">
                     <ul class="flex text-white  items-center justify-center gap-48">
-                        <li> <a href="" class="choice">home</a> </li>
-                        <li> <a href="" class="choice">contact</a> </li>
-                        <li> <a href="" class="choice">about us</a> </li>
+                        <li> <a href="" class="choice">Home</a> </li>
+                        <li> <a href="" class="choice">Contact</a> </li>
+                        <li> <a href="" class="choice">About Us</a> </li>
                     </ul>
 
-
+                    
                 </div>
                 <div class="">
                     <a
