@@ -23,6 +23,7 @@ class ComplaintController extends Controller
         ->orderBy('created_at')
         ->get();
 
+        // $comps = Complaint::get();
 
         return view('complaints.index', ['room' => $room, 'complaints' => $comps]);
     }
@@ -139,7 +140,7 @@ class ComplaintController extends Controller
 
         $comp->response = $request->response;
         $comp->response_date = now();
-        $comp->stat = "END";
+        $comp->status = "END";
 
 
         $comp->save();
@@ -158,8 +159,8 @@ class ComplaintController extends Controller
         $id = request('complaint');
         $comp = Complaint::find($id);
 
-        if ($request->appointment_date < now() && $request->appointment_date < $comp->customer_appointment_date) {
-            return back()->withErrors(['appointment_date' => 'Time is valid']);
+        if ($request->appointment_date < now()) {
+            return back()->withErrors(['appointment_date' => 'Time is invalid']);
         }
 
         $comp->status = "SCHEDULED";

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('response_date')->nullable();
 
             //type = maintenance
-            $table->enum('status', ['PENDING', 'SCHEDULED', 'FIXED', 'END'])->nullable();
+            $table->enum('status', ['PENDING', 'SCHEDULED', 'FIXED', 'END'])->default('PENDING');
             $table->string('img')->nullable();
             $table->string('customer_appointment_date')->nullable();
             $table->date('appointment_date')->nullable();

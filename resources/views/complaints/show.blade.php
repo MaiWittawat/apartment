@@ -42,15 +42,26 @@
                                         placeholder="{{ $complaint->type }}" required="">
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label class="text-sm font-medium text-gray-900 block mb-2">Customer Appointment
-                                        Date</label>
-                                    <input type="text" disabled name="customer_appointment_date"
-                                        id="customer_appointment_date"
-                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-64 p-2.5"
-                                        placeholder="{{ $complaint->customer_appointment_date }}" required="">
-                                </div>
+                                @if ($complaint->status == "PENDING")
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label class="text-sm font-medium text-gray-900 block mb-2">Customer Appointment
+                                            Date</label>
+                                        <input type="text" disabled name="customer_appointment_date"
+                                            id="customer_appointment_date"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-64 p-2.5"
+                                            placeholder="{{ $complaint->customer_appointment_date }}" required="">
+                                    </div>
+                                @else
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label class="text-sm font-medium text-gray-900 block mb-2">Appointment
+                                            Date</label>
+                                        <input type="text" disabled name="ppointment_date"
+                                            id="appointment_date"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-64 p-2.5"
+                                            placeholder="{{ $complaint->appointment_date }}" required="">
+                                    </div>
 
+                                @endif
 
                                 <div class="col-span-6 sm:col-span-3">
                                     <label class="text-sm font-medium text-gray-900 block mb-2">status</label>
@@ -59,6 +70,12 @@
                                         placeholder="{{ $complaint->status }}" required="">
                                 </div>
 
+                                @if ($complaint->status == "END")
+                                    <div class="w-72 h-64 object-cover">
+                                        <img src=" {{ asset ('storage/'.$complaint->img) }}" alt="Event Picture" class="block h-full w-full rounded-lg object-cover object-center">
+
+                                    </div>
+                                @endif
 
 
                                 <div class="col-span-6 sm:col-span-6 ">
