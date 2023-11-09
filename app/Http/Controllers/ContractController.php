@@ -11,7 +11,7 @@ class ContractController extends Controller
 {
     public function create(){
 
-        $users = User::where('role', 'USER')->get();
+        $users = User::with('contracts.room')->where('role', 'USER')->get();
 
         return view('contract.create',["users" => $users]);
     }

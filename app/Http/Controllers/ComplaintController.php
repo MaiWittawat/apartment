@@ -88,7 +88,7 @@ class ComplaintController extends Controller
         ]);
 
         if ($request->customer_appointment_date < now()) {
-            return back()->withErrors(['customer_appointment_date' => 'Time is valid']);
+            return back()->withErrors(['customer_appointment_date' => 'Time is invalid']);
         }
 
         $comp = new Complaint();
@@ -167,7 +167,7 @@ class ComplaintController extends Controller
         $comp->appointment_date = $request->appointment_date;
         $comp->save();
 
-        return redirect()->route('complaints.admin')->with('success', 'Add Response, Successfully.');
+        return redirect()->route('complaints.admin')->with('success', 'Add Appointment, Successfully.');
     }
 
 
@@ -197,7 +197,7 @@ class ComplaintController extends Controller
 
         $room = $comp->room()->first();
 
-        return redirect()->route('complaints.index', ["room" => $room])->with('success', 'Add Response, Successfully.');
+        return redirect()->route('complaints.index', ["room" => $room])->with('success', 'Add Image, Successfully.');
     }
 
     public function endMain(Request $request)

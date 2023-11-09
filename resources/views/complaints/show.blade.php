@@ -113,7 +113,6 @@
                                             <textarea class="w-full border-1 outline-none rounded-md" name="response" id="response" cols="30" rows="10"></textarea>
 
 
-
                                             <button type="submit"
                                                 class="rounded-md p-2 bg-blue-500 mt-4 shadow-lg text-white border-2">
                                                 submit </button>
@@ -129,6 +128,11 @@
                                         <input type="text" class="hidden" name="room"
                                             value="{{ $room }}">
                                         <input type="file" name="image" accept="image/*" id="imageInput">
+                                        @error('image')
+                                            <div class="text-red-600">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                         <button type="submit"
                                             class="mt-2 boder-2 bg-blue-500 w-3/5 px-2 py-1 rounded text-white">Add</button>
                                     </form>
@@ -180,7 +184,11 @@
                                                         class="text-sm font-medium text-gray-900 block mb-2">Response</label>
                                                     <textarea class="w-full border-1 outline-none rounded-md" name="response" id="response" cols="30"
                                                         rows="10"></textarea>
-
+                                                    @error('response')
+                                                    <div class="text-red-600">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
 
 
                                                     <button type="submit"
