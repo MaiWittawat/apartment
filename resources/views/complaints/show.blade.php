@@ -70,7 +70,7 @@
                                         placeholder="{{ $complaint->status }}" required="">
                                 </div>
 
-                                @if ($complaint->status == "END")
+                                @if ($complaint->status == "END" || $complaint->status == "FIXED")
                                     <div class="w-72 h-64 object-cover">
                                         <img src=" {{ asset ('storage/'.$complaint->img) }}" alt="Event Picture" class="block h-full w-full rounded-lg object-cover object-center">
 
