@@ -19,6 +19,7 @@ class ComplaintController extends Controller
 
         $comps = Complaint::with('room')
         ->whereIn('status', ['PENDING', 'SCHEDULED', 'FIXED', 'END'])
+        ->where('room_id', $id)
         ->orderBy('status')
         ->orderBy('created_at')
         ->get();
