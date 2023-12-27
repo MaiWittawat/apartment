@@ -29,7 +29,7 @@
                         <li> <a href="" class="choice">About Us</a> </li>
                     </ul>
 
-                    
+
                 </div>
                 <div class="">
                     <a
@@ -40,7 +40,7 @@
             </div>
 
             <div class="content">
-                <h1>LET start to web</h1>
+                <h1>Let start to web</h1>
                 <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum <br>
                     alias et commodi sed delectus ab laborum asperiores possimus quis sit, beatae vel <br>
                     cupiditate pariatur corrupti eveniet eligendi! Asperiores, pariatur incidunt.</h3>

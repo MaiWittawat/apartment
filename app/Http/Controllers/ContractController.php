@@ -18,7 +18,7 @@ class ContractController extends Controller
 
 
     public function store(Request $request){
-
+        // dd($request->all());
         $request->validate([
             'room_number' => ['required', 'integer'],
         ]);
