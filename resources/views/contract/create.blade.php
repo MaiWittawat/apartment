@@ -81,7 +81,6 @@
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">
                                                     @foreach ($user->contracts as $contract)
-                                                        
                                                         {{ $contract->room->room_number }}
                                                     @endforeach
                                                 </p>
@@ -89,7 +88,7 @@
 
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm flex gap-2">
                                                 <div class="accept-form">
-                                                    <button
+                                                    <button data-user-id="{{ $user->id }}"
                                                         class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin rounded add-room-button"
                                                         type="button">Add room</button>
 
@@ -98,8 +97,9 @@
 
 
                                             <td>
-                                                <form action="{{ route('contract.store', ['user' => $user]) }}" method="POST"
-                                                    class="fixed z-10 inset-0 overflow-y-auto hidden" id="myModal">
+
+                                                <form action="{{ route('contract.store', ['user' => $user]) }}"
+                                                    method="POST" class="fixed z-10 inset-0 overflow-y-auto hidden" id="myModal_{{ $user->id }}">
                                                     @csrf
                                                     <input type="hidden" name="user" value="{{ $user }}">
                                                     <div
@@ -152,6 +152,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </form>
 
                                             </td>
@@ -164,45 +165,48 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
 
-            <script>
-                const addRoomButtons = document.querySelectorAll('.add-room-button');
-                const myModal = document.getElementById('myModal');
-                const cancelBtn = document.getElementById('cancel-btn');
-                const room_numberIp = document.getElementById('room_numberIp');
-                const roomNumberError = document.getElementById('roomNumberError');
+        <script>
+            const addRoomButtons = document.querySelectorAll('.add-room-button');
+            const myModal = document.getElementById('myModal');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const room_numberIp = document.getElementById('room_numberIp');
+            const roomNumberError = document.getElementById('roomNumberError');
 
 
 
-                addRoomButtons.forEach(function(button) {
-                    button.addEventListener('click', function() {
-                        myModal.classList.remove('hidden');
-                    });
+            addRoomButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const userId = button.getAttribute('data-user-id');
+                    const modalId = `myModal_${userId}`;
+                    const myModal = document.getElementById(modalId);
+                    myModal.classList.remove('hidden');
                 });
+            });
 
-                cancelBtn.addEventListener('click', function() {
-                    myModal.classList.add('hidden');
-                    room_numberIp.value = "";
+            cancelBtn.addEventListener('click', function() {
+                myModal.classList.add('hidden');
+                room_numberIp.value = "";
+                roomNumberError.classList.add('hidden');
+                room_numberIp.classList.remove('border-red-500');
+            });
+
+
+            // เมื่อคลิกปุ่ม "Confirm" ใน modal
+            const confirmButton = document.querySelector('#myModal button[type="submit"]');
+            confirmButton.addEventListener('click', function(event) {
+                const roomNumber = room_numberIp.value;
+
+                if (roomNumber <= 0) {
+                    event.preventDefault();
+                    roomNumberError.classList.remove('hidden');
+                    room_numberIp.classList.add('border-red-500');
+                } else {
                     roomNumberError.classList.add('hidden');
                     room_numberIp.classList.remove('border-red-500');
-                });
-
-
-                // เมื่อคลิกปุ่ม "Confirm" ใน modal
-                const confirmButton = document.querySelector('#myModal button[type="submit"]');
-                confirmButton.addEventListener('click', function(event) {
-                    const roomNumber = room_numberIp.value;
-
-                    if (roomNumber <= 0) {
-                        event.preventDefault();
-                        roomNumberError.classList.remove('hidden');
-                        room_numberIp.classList.add('border-red-500');
-                    } else {
-                        roomNumberError.classList.add('hidden');
-                        room_numberIp.classList.remove('border-red-500');
-                    }
-                });
-            </script>
+                }
+            });
+        </script>
 
 </x-app-layout>

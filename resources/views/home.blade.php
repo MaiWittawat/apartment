@@ -40,10 +40,11 @@
             </div>
 
             <div class="content">
-                <h1>Let start to web</h1>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum <br>
-                    alias et commodi sed delectus ab laborum asperiores possimus quis sit, beatae vel <br>
-                    cupiditate pariatur corrupti eveniet eligendi! Asperiores, pariatur incidunt.</h3>
+                <h1>Welcome to FriendApart</h1>
+                <h3>หากคุณกำลังมองหาห้องเช่าราคาถูก สภาพดี เเละ มีบริการสำหรับช่วยเหลือคุณตลอด 24 ชั่วโมง <br>
+                    FriendApart ขอเป็นส่วนหนึ่งในทางเลือกให้กับคุณ
+                    หากคุณสนใจห้องพักของเรากรุณากดที่ปุ่ม "Schedule" <br>
+                    เพื่อนัดวันเวลาสำหรับการจอง ขอขอบคุณที่ใช้บริการ.</h3>
                 <div class="">
                     <a href="{{route('schedule.create')}}" class="py-5 px-16 btn rounded-full">Schedule</a>
                     <a href="{{route('login')}}" class="btn-2 py-5 px-10 btn rounded-full">go to website</a>

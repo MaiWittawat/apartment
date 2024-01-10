@@ -25,7 +25,6 @@ class ContractController extends Controller
 
         $users = User::where('role', 'USER')->get();
 
-
         $room = Room::where('room_number', $request->room_number)->first();
 
         if($room == null){
